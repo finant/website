@@ -15,12 +15,119 @@ publish_mode: editorial_workflow
 
 collections:
   - name: "site"
-    label: "Site settings"
-    description: "Top-of-page eyebrow and footer tagline. More fields will be wired here as the site grows."
+    label: "Site content"
+    description: |
+      All copy on finant.ai. Inline emphasis convention (use sparingly):
+        *word*   → orange italic
+        **word** → orange italic + pink under-stripe (one per page max)
+        __word__ → soft orange highlighter (manifesto only)
     files:
       - file: "src/content/site/settings.md"
         name: "settings"
-        label: "Home page settings"
+        label: "Home page"
         fields:
-          - { label: "Hero eyebrow", name: "hero_eyebrow", widget: "string", hint: "Small line above the headline. e.g. 'In stealth · Est. 2026'" }
-          - { label: "Footer tagline", name: "footer_tagline", widget: "string", hint: "Italic line under the logo in the footer." }
+          # ─── Nav ────────────────────────────────────────────
+          - label: "Nav links"
+            name: "nav_links"
+            widget: "list"
+            summary: "{{fields.label}} → {{fields.href}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Href", name: "href", widget: "string", hint: "Use #section for anchors (e.g. #thesis)" }
+          - { label: "Nav CTA label", name: "nav_cta_label", widget: "string" }
+
+          # ─── Hero ───────────────────────────────────────────
+          - { label: "Hero — eyebrow", name: "hero_eyebrow", widget: "string", hint: "Small line above the headline. e.g. 'In stealth · Est. 2026'" }
+          - label: "Hero — headline"
+            name: "hero_headline"
+            widget: "string"
+            hint: "Each *word* (orange italic) and **word** (pink underline) must be a single token — one asterisk-pair per word. Example: The operating model for *private* **markets.**"
+          - { label: "Hero — lede paragraph", name: "hero_lede", widget: "text" }
+          - { label: "Hero — CTA button label", name: "hero_cta_label", widget: "string" }
+          - label: "Hero — meta tags"
+            name: "hero_meta"
+            widget: "list"
+            field: { label: "Tag", name: "tag", widget: "string" }
+
+          # ─── Ticker ─────────────────────────────────────────
+          - label: "Ticker items (scrolling band)"
+            name: "ticker_items"
+            widget: "list"
+            field: { label: "Item", name: "item", widget: "string" }
+
+          # ─── Manifesto ──────────────────────────────────────
+          - { label: "Manifesto — label", name: "manifesto_label", widget: "string", hint: "e.g. '[ Thesis — 01 ]'" }
+          - label: "Manifesto — body"
+            name: "manifesto_body"
+            widget: "text"
+            hint: "*…* → blue italic. __…__ → soft orange highlighter (this is the only section where __ works)."
+
+          # ─── Pillars ────────────────────────────────────────
+          - { label: "Pillars — eyebrow", name: "pillars_eyebrow", widget: "string" }
+          - { label: "Pillars — heading", name: "pillars_heading", widget: "string", hint: "*word* renders orange italic." }
+          - label: "Pillars (3 cards — icons stay fixed by position)"
+            name: "pillars"
+            widget: "list"
+            min: 3
+            max: 3
+            summary: "{{fields.num}} — {{fields.title}}"
+            fields:
+              - { label: "Number / category", name: "num", widget: "string", hint: "e.g. '01 / Automate'" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Body", name: "body", widget: "text" }
+
+          # ─── Audiences ──────────────────────────────────────
+          - { label: "Audiences — label", name: "audiences_label", widget: "string" }
+          - { label: "Audiences — heading", name: "audiences_heading", widget: "string" }
+          - { label: "Audiences — intro", name: "audiences_intro", widget: "text" }
+          - label: "Audiences list"
+            name: "audiences"
+            widget: "list"
+            field: { label: "Audience", name: "name", widget: "string" }
+
+          # ─── Founders ───────────────────────────────────────
+          - { label: "Founders — eyebrow", name: "founders_eyebrow", widget: "string" }
+          - { label: "Founders — heading", name: "founders_heading", widget: "string" }
+          - label: "Founders"
+            name: "founders"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.role}}"
+            fields:
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Bio", name: "bio", widget: "text" }
+              - label: "Previously / tags"
+                name: "prev"
+                widget: "list"
+                field: { label: "Tag", name: "tag", widget: "string" }
+              - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
+
+          # ─── Contact ────────────────────────────────────────
+          - { label: "Contact — label", name: "contact_label", widget: "string" }
+          - { label: "Contact — heading", name: "contact_heading", widget: "string", hint: "**word** for the page's pink-underline accent (use only here OR in the hero, not both)." }
+          - { label: "Contact — body", name: "contact_body", widget: "text" }
+          - { label: "Contact — email", name: "contact_email", widget: "string" }
+          - { label: "Form — name label", name: "contact_form_name_label", widget: "string" }
+          - { label: "Form — email label", name: "contact_form_email_label", widget: "string" }
+          - { label: "Form — role label", name: "contact_form_role_label", widget: "string" }
+          - { label: "Form — role placeholder", name: "contact_form_role_placeholder", widget: "string" }
+          - label: "Form — role options"
+            name: "contact_form_role_options"
+            widget: "list"
+            field: { label: "Option", name: "option", widget: "string" }
+          - { label: "Form — note label", name: "contact_form_note_label", widget: "string" }
+          - { label: "Form — note placeholder", name: "contact_form_note_placeholder", widget: "string" }
+          - { label: "Form — submit button label", name: "contact_form_submit_label", widget: "string" }
+          - { label: "Form — fine print", name: "contact_form_fineprint", widget: "text" }
+
+          # ─── Footer ─────────────────────────────────────────
+          - { label: "Footer — tagline", name: "footer_tagline", widget: "string", hint: "Italic line under the logo in the footer." }
+          - label: "Footer — links"
+            name: "footer_links"
+            widget: "list"
+            summary: "{{fields.label}} → {{fields.href}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Href", name: "href", widget: "string" }
+          - { label: "Footer — copyright", name: "footer_copyright", widget: "string" }
+          - { label: "Footer — status", name: "footer_status", widget: "string" }

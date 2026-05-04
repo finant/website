@@ -19,8 +19,19 @@ The `editorial_workflow` mode is on, so saves create a PR-style draft instead of
 publishing instantly. Toggle to `simple` in `public/admin/config.yml` if you'd
 rather publish in one click.
 
-What's editable today: hero eyebrow text, footer tagline. Everything else is
-hardcoded in the page until we extend the Decap config (see "Extending Decap" below).
+What's editable today: every text block on the home page — nav, hero, ticker,
+manifesto, pillars, audiences, founders, contact form, footer. SVG icons and
+the brand mark stay in code. To add a new editable region, see "Extending
+Decap" below.
+
+For inline emphasis, the CMS supports a tiny shorthand (don't write HTML):
+
+- `*word*` → orange italic `<em>` (renders blue inside the manifesto)
+- `**word**` → orange italic + pink under-stripe — the page's *one* pink moment, use sparingly
+- `__word__` → soft orange highlighter (manifesto only)
+
+In the hero headline each `*…*` / `**…**` must wrap a single non-whitespace
+token so the per-word reveal animation stays intact.
 
 ---
 
@@ -48,9 +59,10 @@ finant-website/
 │   └── assets/               # logo files
 ├── src/
 │   ├── content/site/
-│   │   └── settings.md       # ← Decap edits this
+│   │   └── settings.md       # ← Decap edits this (all home-page copy)
 │   ├── content.config.ts     # Astro content collection schema
 │   ├── layouts/Layout.astro  # <head>, fonts, scripts
+│   ├── lib/text.ts           # *…* / **…** / __…__ inline-emphasis parser
 │   ├── pages/index.astro     # the home page
 │   ├── scripts/site.ts       # reveal-on-scroll, smooth scroll, contact form mailto
 │   └── styles/

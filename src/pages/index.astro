@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getEntry } from 'astro:content';
+import { emph, heroHeadline } from '../lib/text';
 
 const settings = await getEntry('site', 'settings');
-const { hero_eyebrow, footer_tagline } = settings!.data;
+const s = settings!.data;
 ---
 
 <Layout>
@@ -13,10 +14,10 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
         <img src="/assets/logo-lockup.png" alt="finant" />
       </a>
       <nav class="nav-links" aria-label="primary">
-        <a href="#thesis">Thesis</a>
-        <a href="#building">Building</a>
-        <a href="#team">Team</a>
-        <a href="#contact" class="nav-cta">Get in touch</a>
+        {s.nav_links.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))}
+        <a href="#contact" class="nav-cta">{s.nav_cta_label}</a>
       </nav>
     </div>
   </header>
@@ -26,29 +27,18 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
       <div class="hero-main">
         <div class="eyebrow hero-eyebrow">
           <span class="pulse" aria-hidden="true"></span>
-          {hero_eyebrow}
+          {s.hero_eyebrow}
         </div>
 
-        <h1>
-          <span class="word">The</span>
-          <span class="word">operating</span>
-          <span class="word">model</span>
-          <span class="word">for</span>
-          <span class="word"><em>private</em></span>
-          <span class="word"><em class="underlined">markets.</em></span>
-        </h1>
+        <h1 set:html={heroHeadline(s.hero_headline)} />
       </div>
 
       <div class="hero-side">
-        <p class="lede">
-          AI-native infrastructure to automate the legal, accounting and operational workflows that power
-          fund administrators, GPs and asset allocators &mdash; so they can scale revenue faster
-          and run bigger portfolios with less friction.
-        </p>
+        <p class="lede" set:html={emph(s.hero_lede)} />
 
         <div class="cta-row">
           <a href="#contact" class="btn-primary">
-            Request early access
+            {s.hero_cta_label}
             <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -56,9 +46,7 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
         </div>
 
         <div class="hero-meta">
-          <span>Private equity</span>
-          <span>Fund administration</span>
-          <span>AI-native</span>
+          {s.hero_meta.map((item) => <span>{item}</span>)}
         </div>
       </div>
     </div>
@@ -80,37 +68,16 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span>Fund administration</span>
-      <span>Capital calls &amp; distributions</span>
-      <span>NAV reporting</span>
-      <span>Investor relations</span>
-      <span>Waterfall calculations</span>
-      <span>Portfolio monitoring</span>
-      <span>LP reporting</span>
-      <span>Fund accounting</span>
-      <span>SPV operations</span>
-      <span>Carry &amp; allocations</span>
-      <span>Fund administration</span>
-      <span>Capital calls &amp; distributions</span>
-      <span>NAV reporting</span>
-      <span>Investor relations</span>
-      <span>Waterfall calculations</span>
-      <span>Portfolio monitoring</span>
-      <span>LP reporting</span>
-      <span>Fund accounting</span>
-      <span>SPV operations</span>
-      <span>Carry &amp; allocations</span>
+      {[...s.ticker_items, ...s.ticker_items].map((item) => (
+        <span set:html={item} />
+      ))}
     </div>
   </div>
 
   <section class="manifesto reveal" id="thesis">
     <div class="wrap manifesto-inner">
-      <div class="manifesto-label">[ Thesis &mdash; 01 ]</div>
-      <p>
-        Private markets are a multi-trillion-dollar industry still
-        running on <span class="underline-soft">spreadsheets, email threads and legacy tools</span>.
-        We're rebuilding the foundation &mdash; <em>quietly, and with care.</em>
-      </p>
+      <div class="manifesto-label">{s.manifesto_label}</div>
+      <p set:html={emph(s.manifesto_body)} />
     </div>
   </section>
 
@@ -118,44 +85,40 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
     <div class="wrap">
       <div class="pillars-head">
         <div>
-          <span class="eyebrow">[ What we're building &mdash; 02 ]</span>
-          <h2>An <em>AI-native</em> single source of truth.</h2>
+          <span class="eyebrow">{s.pillars_eyebrow}</span>
+          <h2 set:html={emph(s.pillars_heading)} />
         </div>
       </div>
 
       <div class="pillars-grid">
-        <article class="pillar">
-          <span class="pillar-num">01 / Automate</span>
-          <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="18" cy="18" r="14" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M18 8v10l6 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-          <h3>Eliminate the busywork.</h3>
-          <p>Automate the legal, accounting and reporting workflows that consume the most operator time today &mdash; without losing the audit trail.</p>
-        </article>
-
-        <article class="pillar">
-          <span class="pillar-num">02 / Scale</span>
-          <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M4 28L14 18l6 6 12-14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M24 10h8v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <h3>Manage bigger books.</h3>
-          <p>Free fund administrators and GP back-offices to scale revenue faster and run larger portfolios without proportional headcount.</p>
-        </article>
-
-        <article class="pillar">
-          <span class="pillar-num">03 / Unify</span>
-          <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.4"/>
-            <circle cx="26" cy="10" r="3" stroke="currentColor" stroke-width="1.4"/>
-            <circle cx="10" cy="26" r="3" stroke="currentColor" stroke-width="1.4"/>
-            <circle cx="26" cy="26" r="3" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M13 10h10M10 13v10M26 13v10M13 26h10" stroke="currentColor" stroke-width="1.4"/>
-          </svg>
-          <h3>One source of truth.</h3>
-          <p>Replace fragmented stacks and copy-pasted data with a connected operating layer that turns documents, ledgers and policies into structured, queryable knowledge.</p>
-        </article>
+        {s.pillars.map((pillar, i) => (
+          <article class="pillar">
+            <span class="pillar-num">{pillar.num}</span>
+            {i === 0 && (
+              <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="18" cy="18" r="14" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M18 8v10l6 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            )}
+            {i === 1 && (
+              <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 28L14 18l6 6 12-14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M24 10h8v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            )}
+            {i === 2 && (
+              <svg class="pillar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="26" cy="10" r="3" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="10" cy="26" r="3" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="26" cy="26" r="3" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M13 10h10M10 13v10M26 13v10M13 26h10" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+            )}
+            <h3>{pillar.title}</h3>
+            <p set:html={emph(pillar.body)} />
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -163,30 +126,17 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
   <section class="audiences reveal">
     <div class="wrap audiences-grid">
       <div class="audiences-head">
-        <span class="label">[ Built for &mdash; 03 ]</span>
-        <h2>The operators of private capital.</h2>
-        <p class="audiences-intro">
-          We're working with a small group of design partners across the stack &mdash;
-          shaping the product alongside the people who'll use it.
-        </p>
+        <span class="label">{s.audiences_label}</span>
+        <h2 set:html={emph(s.audiences_heading)} />
+        <p class="audiences-intro" set:html={emph(s.audiences_intro)} />
       </div>
       <ul class="audiences-list">
-        <li>
-          <span class="num">/ 01</span>
-          <span class="name">Asset allocators</span>
-        </li>
-        <li>
-          <span class="num">/ 02</span>
-          <span class="name">Family offices</span>
-        </li>
-        <li>
-          <span class="num">/ 03</span>
-          <span class="name">Fund administrators</span>
-        </li>
-        <li>
-          <span class="num">/ 04</span>
-          <span class="name">General partners (GPs)</span>
-        </li>
+        {s.audiences.map((name, i) => (
+          <li>
+            <span class="num">/ {String(i + 1).padStart(2, '0')}</span>
+            <span class="name">{name}</span>
+          </li>
+        ))}
       </ul>
     </div>
   </section>
@@ -195,53 +145,28 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
     <div class="wrap">
       <div class="founders-head">
         <div>
-          <span class="eyebrow">[ Team &mdash; 04 ]</span>
-          <h2>Built by <em>operators</em> who lived the problem.</h2>
+          <span class="eyebrow">{s.founders_eyebrow}</span>
+          <h2 set:html={emph(s.founders_heading)} />
         </div>
       </div>
 
       <div class="founders-grid">
-        <article class="founder">
-          <span class="role">Founder &amp; CEO</span>
-          <h3>Persefoni Noulika</h3>
-          <p>
-            15+ years in international private equity investing and fundraising.
-            Led significant growth-equity rounds in technology and deployed
-            over $1bn in equity. Co-founded and led a $1bn AUM impact strategy fund.
-          </p>
-          <div class="founder-prev">
-            <span>BlackRock</span>
-            <span>UBS</span>
-            <span>$1bn+ deployed</span>
-          </div>
-          <a class="founder-link" href="https://www.linkedin.com/in/persefoni-noulika/" target="_blank" rel="noopener">
-            LinkedIn
-            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M3 9l6-6M4 3h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
-
-        <article class="founder">
-          <span class="role">Co-founder &amp; CTO</span>
-          <h3>Nick Sorros</h3>
-          <p>
-            Engineer and applied AI practitioner leading finant's technical direction &mdash;
-            from architecture and infrastructure to LLM tooling, RAG systems and the data
-            pipelines that make the platform reliable at institutional scale.
-          </p>
-          <div class="founder-prev">
-            <span>AI / ML</span>
-            <span>LLMs &amp; RAG</span>
-            <span>Cloud platforms</span>
-          </div>
-          <a class="founder-link" href="https://www.linkedin.com/in/nick-sorros/" target="_blank" rel="noopener">
-            LinkedIn
-            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M3 9l6-6M4 3h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </article>
+        {s.founders.map((f) => (
+          <article class="founder">
+            <span class="role">{f.role}</span>
+            <h3>{f.name}</h3>
+            <p set:html={emph(f.bio)} />
+            <div class="founder-prev">
+              {f.prev.map((tag) => <span>{tag}</span>)}
+            </div>
+            <a class="founder-link" href={f.linkedin} target="_blank" rel="noopener">
+              LinkedIn
+              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 9l6-6M4 3h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -249,16 +174,12 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
   <section class="contact reveal" id="contact">
     <div class="wrap contact-inner">
       <div class="contact-head">
-        <span class="label">[ Get in touch &mdash; 05 ]</span>
-        <h2>Want a closer <em>look?</em></h2>
-        <p>
-          We're talking with a small group of design partners &mdash; operators who
-          want to help shape the platform from day one. If that's you,
-          or you're just curious, reach out.
-        </p>
+        <span class="label">{s.contact_label}</span>
+        <h2 set:html={emph(s.contact_heading)} />
+        <p set:html={emph(s.contact_body)} />
         <p style="margin-top: 28px;">
-          <a href="mailto:persefoni@finant.ai" class="contact-email">
-            persefoni@finant.ai
+          <a href={`mailto:${s.contact_email}`} class="contact-email">
+            {s.contact_email}
           </a>
         </p>
       </div>
@@ -277,38 +198,33 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
           <label>Don't fill this out if you're human: <input name="bot-field" /></label>
         </p>
         <div class="field">
-          <label class="field-label" for="ea-name">Name</label>
+          <label class="field-label" for="ea-name">{s.contact_form_name_label}</label>
           <input id="ea-name" name="name" type="text" autocomplete="name" required />
         </div>
         <div class="field">
-          <label class="field-label" for="ea-email">Work email</label>
+          <label class="field-label" for="ea-email">{s.contact_form_email_label}</label>
           <input id="ea-email" name="email" type="email" autocomplete="email" required />
         </div>
         <div class="field">
-          <label class="field-label" for="ea-role">I am a&hellip;</label>
+          <label class="field-label" for="ea-role">{s.contact_form_role_label}</label>
           <select id="ea-role" name="role" required>
-            <option value="">Select one</option>
-            <option value="Fund administrator">Fund administrator</option>
-            <option value="General partner (GP)">General partner (GP)</option>
-            <option value="Family office">Family office</option>
-            <option value="Asset allocator / LP">Asset allocator / LP</option>
-            <option value="Investor">Investor</option>
-            <option value="Other">Other</option>
+            <option value="">{s.contact_form_role_placeholder}</option>
+            {s.contact_form_role_options.map((opt) => (
+              <option value={opt}>{opt}</option>
+            ))}
           </select>
         </div>
         <div class="field">
-          <label class="field-label" for="ea-note">Note (optional)</label>
-          <textarea id="ea-note" name="note" rows="2" placeholder="What would you like to see?"></textarea>
+          <label class="field-label" for="ea-note">{s.contact_form_note_label}</label>
+          <textarea id="ea-note" name="note" rows="2" placeholder={s.contact_form_note_placeholder}></textarea>
         </div>
         <button type="submit">
-          Send
+          {s.contact_form_submit_label}
           <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <p class="contact-fineprint">
-          We'll only use your details to get in touch about finant. No newsletters, no list-sharing.
-        </p>
+        <p class="contact-fineprint">{s.contact_form_fineprint}</p>
         <p class="contact-status" id="earlyAccessStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -319,17 +235,20 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
       <div class="footer-inner">
         <div class="footer-mark">
           <img src="/assets/logo-lockup.png" alt="finant" />
-          <p class="tagline">{footer_tagline}</p>
+          <p class="tagline">{s.footer_tagline}</p>
         </div>
         <div class="footer-meta">
-          <a href="mailto:persefoni@finant.ai">Email</a>
-          <a href="https://www.linkedin.com/company/finant-ai/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="#contact">Early access</a>
+          {s.footer_links.map((link) => {
+            const external = link.href.startsWith('http');
+            return external
+              ? <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+              : <a href={link.href}>{link.label}</a>;
+          })}
         </div>
       </div>
       <div class="footer-bottom">
-        <span>&copy; 2026 finant. All rights reserved.</span>
-        <span>Currently in stealth.</span>
+        <span>{s.footer_copyright}</span>
+        <span>{s.footer_status}</span>
       </div>
     </div>
   </footer>
