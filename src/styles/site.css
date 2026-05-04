@@ -749,6 +749,26 @@ body::after {
   line-height: 1.5;
 }
 
+/* Honeypot — hidden from humans, visible to dumb bots */
+.contact-form .hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px; height: 1px;
+  overflow: hidden;
+}
+
+/* Inline submit status */
+.contact-status {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  min-height: 1em;
+}
+.contact-status[data-state="success"] { color: var(--neon-orange); }
+.contact-status[data-state="error"]   { color: #DC2626; }
+.contact-status[data-state="pending"] { color: var(--ink-soft); }
+
 /* ============================================================
    Footer
    ============================================================ */

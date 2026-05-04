@@ -9,40 +9,50 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-/* Form submit -> mailto (works on a static page) */
+/* Contact form -> Netlify Forms (AJAX, stays on page) */
 const form = document.getElementById('earlyAccessForm') as HTMLFormElement | null;
-if (form) {
-  form.addEventListener('submit', (e) => {
+const status = document.getElementById('earlyAccessStatus');
+
+if (form && status) {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const fields = form.elements as typeof form.elements & {
       name: HTMLInputElement;
       email: HTMLInputElement;
       role: HTMLSelectElement;
-      note: HTMLTextAreaElement;
     };
-    const name = encodeURIComponent(fields.name.value.trim());
-    const email = encodeURIComponent(fields.email.value.trim());
-    const role = encodeURIComponent(fields.role.value.trim());
-    const note = encodeURIComponent(fields.note.value.trim());
 
-    if (!name || !email || !role) {
-      [fields.name, fields.email, fields.role].forEach((f) => {
-        if (!f.value.trim()) f.style.borderColor = 'var(--neon-orange)';
-      });
+    const missing = [fields.name, fields.email, fields.role].filter((f) => !f.value.trim());
+    if (missing.length) {
+      missing.forEach((f) => (f.style.borderColor = 'var(--neon-orange)'));
+      status.textContent = 'Please fill in name, email and role.';
+      status.dataset.state = 'error';
       return;
     }
 
-    const subject = encodeURIComponent('finant — Early access request');
-    const body =
-      `Hi Persefoni,%0D%0A%0D%0A` +
-      `I'd like early access to finant.%0D%0A%0D%0A` +
-      `Name: ${name}%0D%0A` +
-      `Email: ${email}%0D%0A` +
-      `I am a: ${role}%0D%0A` +
-      (note ? `Note: ${note}%0D%0A` : '') +
-      `%0D%0AThanks.`;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    submitBtn.disabled = true;
+    status.textContent = 'Sending…';
+    status.dataset.state = 'pending';
 
-    window.location.href = `mailto:persefoni@finant.ai?subject=${subject}&body=${body}`;
+    const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString();
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      form.reset();
+      status.textContent = 'Thanks — we\'ll be in touch.';
+      status.dataset.state = 'success';
+    } catch {
+      status.textContent = 'Something went wrong. Please email persefoni@finant.ai instead.';
+      status.dataset.state = 'error';
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }
 

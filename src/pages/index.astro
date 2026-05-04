@@ -263,7 +263,19 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
         </p>
       </div>
 
-      <form class="contact-form" id="earlyAccessForm" novalidate>
+      <form
+        class="contact-form"
+        id="earlyAccessForm"
+        name="early-access"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="early-access" />
+        <p class="hp-field" aria-hidden="true">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
         <div class="field">
           <label class="field-label" for="ea-name">Name</label>
           <input id="ea-name" name="name" type="text" autocomplete="name" required />
@@ -276,12 +288,12 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
           <label class="field-label" for="ea-role">I am a&hellip;</label>
           <select id="ea-role" name="role" required>
             <option value="">Select one</option>
-            <option>Fund administrator</option>
-            <option>General partner (GP)</option>
-            <option>Family office</option>
-            <option>Asset allocator / LP</option>
-            <option>Investor</option>
-            <option>Other</option>
+            <option value="Fund administrator">Fund administrator</option>
+            <option value="General partner (GP)">General partner (GP)</option>
+            <option value="Family office">Family office</option>
+            <option value="Asset allocator / LP">Asset allocator / LP</option>
+            <option value="Investor">Investor</option>
+            <option value="Other">Other</option>
           </select>
         </div>
         <div class="field">
@@ -297,6 +309,7 @@ const { hero_eyebrow, footer_tagline } = settings!.data;
         <p class="contact-fineprint">
           We'll only use your details to get in touch about finant. No newsletters, no list-sharing.
         </p>
+        <p class="contact-status" id="earlyAccessStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
