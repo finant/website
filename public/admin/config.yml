@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: https://finant.ai
+display_url: https://finant.ai
+logo_url: /assets/logo-lockup.png
+
+# Stage edits as PRs instead of committing direct to main.
+# Flip to `simple` if you want one-click publish without review.
+publish_mode: editorial_workflow
+
+collections:
+  - name: "site"
+    label: "Site settings"
+    description: "Top-of-page eyebrow and footer tagline. More fields will be wired here as the site grows."
+    files:
+      - file: "src/content/site/settings.md"
+        name: "settings"
+        label: "Home page settings"
+        fields:
+          - { label: "Hero eyebrow", name: "hero_eyebrow", widget: "string", hint: "Small line above the headline. e.g. 'In stealth · Est. 2026'" }
+          - { label: "Footer tagline", name: "footer_tagline", widget: "string", hint: "Italic line under the logo in the footer." }

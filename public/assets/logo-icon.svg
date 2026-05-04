@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 188" role="img" aria-label="finant icon">
+  
+  <rect x="0" y="0" width="188" height="188" rx="41.36" fill="#000000"></rect>
+  
+  <g fill="#FFFFFF">
+    
+    <circle cx="94" cy="46" r="12"></circle>
+    <circle cx="138" cy="46" r="12"></circle>
+    
+    <circle cx="50" cy="78" r="12"></circle>
+    <circle cx="94" cy="78" r="12"></circle>
+    <circle cx="138" cy="78" r="12"></circle>
+    
+    <circle cx="50" cy="110" r="12"></circle>
+    <circle cx="94" cy="110" r="12"></circle>
+    
+    <circle cx="94" cy="142" r="12"></circle>
+  </g>
+</svg>

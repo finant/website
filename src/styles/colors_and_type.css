@@ -1,0 +1,241 @@
+/* ============================================================
+   FINANT — Colors & Type
+   ============================================================
+   Single source of truth for color + type tokens across the
+   marketing site and the in-app platform.
+
+   Source files this consolidates:
+     - reference/cofounder-attempt.html  (marketing site)
+     - apps/app/src/styles/variables.css (platform)
+
+   Two surfaces, one system:
+     - Marketing/brand surface    → light, editorial, expressive
+     - Platform / app surface     → denser, neutral, work-focused
+   The only divergence is the *role* tokens (sidebar, badges, etc.).
+   The base palette + type ramp are shared.
+============================================================ */
+
+/* ─── Webfonts ──────────────────────────────────────────────
+   Geist + JetBrains Mono are loaded via Google Fonts; Fraunces
+   is the editorial serif used in marketing headlines. Keep
+   self-hosted copies in fonts/ for production.
+─────────────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ─── Base palette ─── */
+  --fn-ink:        #0A0A0A;   /* primary ink, near-black */
+  --fn-ink-2:      #111111;   /* platform text */
+  --fn-bg:         #FFFFFF;   /* marketing canvas */
+  --fn-bg-2:       #F5F5F4;   /* warm grey wash */
+  --fn-bg-3:       #ECECEA;   /* deeper wash */
+  --fn-bg-app:     #F5F4F2;   /* platform canvas (warm) */
+  --fn-bg-dark:    #0A0A0A;   /* full dark surface */
+  --fn-surface:    #FFFFFF;   /* card / panel surface */
+
+  --fn-ink-soft:   rgba(10, 10, 10, 0.62);
+  --fn-ink-faint:  rgba(10, 10, 10, 0.38);
+  --fn-ink-on-dark:        #FFFFFF;
+  --fn-ink-soft-on-dark:   rgba(255, 255, 255, 0.66);
+  --fn-ink-faint-on-dark:  rgba(255, 255, 255, 0.38);
+
+  --fn-rule:       rgba(10, 10, 10, 0.12);
+  --fn-rule-soft:  rgba(10, 10, 10, 0.06);
+  --fn-rule-on-dark: rgba(255, 255, 255, 0.14);
+  --fn-border:     #E2E0DC;   /* solid border in app */
+
+  /* ─── Brand accent system ─── */
+  /*   Orange  → primary brand. Used sparingly, never for floods.  */
+  /*   Blue    → secondary. Pairs with orange in the dot-pattern.  */
+  /*   Pink    → tertiary, single-moment accent (a highlighter).   */
+  --fn-orange:     #FB923C;
+  --fn-orange-ink: #C2410C;   /* AA-on-white text variant */
+  --fn-orange-tint:#FFF1E6;
+  --fn-blue:       #38BDF8;
+  --fn-blue-ink:   #0369A1;
+  --fn-blue-tint:  #E6F6FE;
+  --fn-pink:       #F472B6;
+  --fn-pink-ink:   #BE185D;
+  --fn-pink-tint:  #FCE7F3;
+
+  /* ─── Semantic state ─── */
+  --fn-success:    #059669;
+  --fn-success-bg: #D1FAE5;
+  --fn-warning:    #F59E0B;
+  --fn-warning-bg: #FEF3C7;
+  --fn-error:      #DC2626;
+  --fn-error-bg:   #FEE2E2;
+  --fn-info:       var(--fn-blue);
+  --fn-info-bg:    var(--fn-blue-tint);
+
+  /* ─── Selection / highlights ─── */
+  --fn-selection-bg:  var(--fn-orange);
+  --fn-selection-ink: var(--fn-ink);
+
+  /* ─── Type families ─── */
+  --fn-serif: "Fraunces", "Times New Roman", Georgia, serif;
+  --fn-sans:  "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+  --fn-mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─── Type ramp (semantic) ───
+     Marketing uses a wide editorial scale via clamp() for fluid sizing.
+     Platform uses a tighter functional scale.
+  */
+  --fn-display:    clamp(46px, 8.4vw, 124px); /* hero, "The operating model" */
+  --fn-h1:         clamp(36px, 5vw, 72px);
+  --fn-h2:         clamp(30px, 4vw, 52px);
+  --fn-h3:         clamp(24px, 2.4vw, 32px);
+  --fn-h4:         20px;
+  --fn-body-lg:    18px;
+  --fn-body:       17px;
+  --fn-body-sm:    15px;
+  --fn-caption:    13px;
+  --fn-eyebrow:    11.5px;   /* mono, uppercase, letter-spaced */
+
+  /* ─── Type weights ─── */
+  --fn-weight-light:    300;
+  --fn-weight-regular:  400;
+  --fn-weight-medium:   500;
+  --fn-weight-semibold: 600;
+  --fn-weight-bold:     700;
+
+  /* Editorial serif headings sit at 350 — distinctly lighter than 400. */
+  --fn-serif-display-weight: 350;
+  --fn-serif-display-vfs:    "opsz" 144, "SOFT" 30;
+
+  /* ─── Letterspacing ─── */
+  --fn-track-display:  -0.025em;
+  --fn-track-heading:  -0.018em;
+  --fn-track-tight:    -0.01em;
+  --fn-track-mono:     0.14em;
+  --fn-track-eyebrow:  0.16em;
+
+  /* ─── Line heights ─── */
+  --fn-lh-display: 0.97;
+  --fn-lh-heading: 1.05;
+  --fn-lh-body:    1.55;
+
+  /* ─── Spacing (8px base) ─── */
+  --fn-space-1: 4px;
+  --fn-space-2: 8px;
+  --fn-space-3: 16px;
+  --fn-space-4: 24px;
+  --fn-space-5: 32px;
+  --fn-space-6: 48px;
+  --fn-space-7: 64px;
+  --fn-space-8: 96px;
+
+  /* ─── Layout ─── */
+  --fn-max:      1240px;
+  --fn-gutter:   clamp(20px, 4vw, 56px);
+  --fn-radius-sm: 4px;
+  --fn-radius-md: 8px;
+  --fn-radius-lg: 14px;
+  --fn-radius-pill: 999px;
+
+  /* ─── Shadow / elevation ─── */
+  --fn-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --fn-shadow-md: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --fn-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --fn-shadow-pop: 0 18px 48px rgba(0, 0, 0, 0.22);
+
+  /* ─── Motion ─── */
+  --fn-ease:         cubic-bezier(.2, .7, .2, 1);
+  --fn-dur-fast:     150ms;
+  --fn-dur-base:     250ms;
+  --fn-dur-slow:     900ms;
+
+  /* ─── Dot-grid background motif (echoes the F mark) ─── */
+  --fn-dotgrid-light:
+    radial-gradient(circle at 1px 1px, rgba(10, 10, 10, 0.06) 1px, transparent 1.4px);
+  --fn-dotgrid-dark:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 1.4px);
+  --fn-dotgrid-size: 28px 28px;
+}
+
+/* ============================================================
+   Semantic element styles
+   ============================================================ */
+
+.fn-eyebrow {
+  font-family: var(--fn-mono);
+  font-size: var(--fn-eyebrow);
+  letter-spacing: var(--fn-track-eyebrow);
+  text-transform: uppercase;
+  color: var(--fn-ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fn-display, h1.fn-display {
+  font-family: var(--fn-serif);
+  font-weight: var(--fn-serif-display-weight);
+  font-size: var(--fn-display);
+  line-height: var(--fn-lh-display);
+  letter-spacing: var(--fn-track-display);
+  font-variation-settings: var(--fn-serif-display-vfs);
+  margin: 0;
+}
+.fn-display em { font-style: italic; font-weight: 300; color: var(--fn-orange); }
+
+.fn-h1 {
+  font-family: var(--fn-serif);
+  font-weight: var(--fn-serif-display-weight);
+  font-size: var(--fn-h1);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.fn-h2 {
+  font-family: var(--fn-serif);
+  font-weight: var(--fn-serif-display-weight);
+  font-size: var(--fn-h2);
+  line-height: var(--fn-lh-heading);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.fn-h2 em { font-style: italic; color: var(--fn-orange); }
+
+.fn-h3 {
+  font-family: var(--fn-serif);
+  font-weight: var(--fn-serif-display-weight);
+  font-size: var(--fn-h3);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.fn-h4 {
+  font-family: var(--fn-sans);
+  font-weight: var(--fn-weight-semibold);
+  font-size: var(--fn-h4);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.fn-lede {
+  font-family: var(--fn-serif);
+  font-weight: var(--fn-weight-light);
+  font-size: var(--fn-body-lg);
+  line-height: 1.45;
+  color: var(--fn-ink);
+}
+
+p.fn-body, .fn-body {
+  font-family: var(--fn-sans);
+  font-size: var(--fn-body);
+  line-height: var(--fn-lh-body);
+  color: var(--fn-ink);
+}
+
+.fn-body-sm { font-family: var(--fn-sans); font-size: var(--fn-body-sm); line-height: 1.5; }
+.fn-caption { font-family: var(--fn-sans); font-size: var(--fn-caption); line-height: 1.45; color: var(--fn-ink-soft); }
+
+.fn-mono {
+  font-family: var(--fn-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
