@@ -102,7 +102,7 @@ founders:
       - "AI / ML"
       - "LLMs & RAG"
       - "Cloud platforms"
-    linkedin: "https://www.linkedin.com/in/nick-sorros/"
+    linkedin: "https://www.linkedin.com/in/nsorros/"
 
 # ──────────────────────────────────────────────────────────────
 # Contact
