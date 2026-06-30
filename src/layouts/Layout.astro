@@ -10,6 +10,23 @@ const {
   title = 'finant — The operating model for private markets',
   description = 'finant is building AI-native infrastructure to automate the legal, accounting and operational workflows that power fund administrators, GPs and asset allocators. Currently in stealth.',
 } = Astro.props;
+
+// Absolute URLs for canonical + social cards (resolved against `site` in astro.config).
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://finant.ai').href;
+const ogImage = new URL('/assets/logo-mark.png', Astro.site ?? 'https://finant.ai').href;
+
+// Organization structured data — helps search engines render a richer
+// branded result for "finant" / "finant.ai".
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'finant',
+  legalName: 'finant',
+  url: 'https://finant.ai',
+  logo: ogImage,
+  description,
+  sameAs: ['https://www.linkedin.com/company/finant-ai/'],
+};
 ---
 
 <!doctype html>
@@ -20,11 +37,22 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#FFFFFF" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
 
+    <meta property="og:site_name" content="finant" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/logo-mark.png" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
 
     <link rel="icon" type="image/svg+xml" href="/assets/logo-icon.svg" />
     <link rel="alternate icon" type="image/png" href="/assets/logo-icon.png" />

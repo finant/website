@@ -102,12 +102,33 @@ body::after {
 }
 .nav-logo {
   display: flex; align-items: center;
+  color: var(--ink);
   transition: opacity .2s ease;
 }
 .nav-logo:hover { opacity: 0.75; }
-.nav-logo img {
-  height: 38px;
+
+/* ------------------------------------------------------------
+   Logo lockup — vector dot-grid + wordmark, inherits currentColor
+   so it reads on any background (light nav / dark footer).
+   ------------------------------------------------------------ */
+.logo-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42em;
+  line-height: 1;
+  font-size: 24px;            /* nav default; footer overrides below */
+  color: inherit;
+}
+.logo-lockup-mark {
+  height: 1.18em;
   width: auto;
+  flex: none;
+}
+.logo-lockup-word {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 1.18em;
+  letter-spacing: -0.03em;
 }
 .nav-links { display: flex; align-items: center; gap: 28px; }
 .nav-links a {
@@ -129,7 +150,7 @@ body::after {
 @media (max-width: 640px) {
   .nav-links a:not(.nav-cta) { display: none; }
   .nav-inner { height: 70px; }
-  .nav-logo img { height: 32px; }
+  .nav-logo .logo-lockup { font-size: 21px; }
 }
 
 /* ============================================================
@@ -567,6 +588,40 @@ body::after {
 .founder:nth-child(1)::before { background: var(--neon-orange); }
 .founder:nth-child(2)::before { background: var(--neon-blue); }
 
+.founder-id {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.founder-id-text { display: flex; flex-direction: column; gap: 6px; }
+.founder-avatar {
+  flex: none;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-3);
+  border: 1px solid var(--rule);
+}
+.founder-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Initials monogram — sits under the photo; shown when no photo loads. */
+.founder-monogram {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 18px; letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.founder-avatar img + .founder-monogram { display: none; }
+.founder:nth-child(1) .founder-avatar { background: var(--neon-orange); }
+.founder:nth-child(1) .founder-monogram { color: #fff; }
+.founder:nth-child(2) .founder-avatar { background: var(--neon-blue); }
+.founder:nth-child(2) .founder-monogram { color: #fff; }
+
 .founder .role {
   font-family: var(--mono);
   font-size: 11.5px; letter-spacing: 0.14em;
@@ -804,8 +859,9 @@ footer::before {
 }
 .footer-mark {
   display: flex; flex-direction: column; gap: 18px;
+  color: var(--ink-on-dark);
 }
-.footer-mark img { height: 38px; width: auto; filter: invert(1); }
+.footer-mark .footer-logo { font-size: 26px; }
 .footer-mark .tagline {
   font-family: var(--serif);
   font-style: italic;

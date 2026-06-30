@@ -1,23 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
 import { getEntry } from 'astro:content';
 import { emph, heroHeadline } from '../lib/text';
 
 const settings = await getEntry('site', 'settings');
 const s = settings!.data;
+
+// Primary CTA — falls back to the contact form if no explicit href is set.
+const ctaHref = s.cta_href ?? '#contact';
+
+// Initials for the founder monogram fallback (when no photo is supplied).
+const initials = (name: string) =>
+  name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 ---
 
 <Layout>
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="nav-logo" href="/" aria-label="finant home">
-        <img src="/assets/logo-lockup.png" alt="finant" />
+        <Logo />
       </a>
       <nav class="nav-links" aria-label="primary">
         {s.nav_links.map((link) => (
           <a href={link.href}>{link.label}</a>
         ))}
-        <a href="#contact" class="nav-cta">{s.nav_cta_label}</a>
+        <a href={ctaHref} class="nav-cta">{s.nav_cta_label}</a>
       </nav>
     </div>
   </header>
@@ -37,7 +45,7 @@ const s = settings!.data;
         <p class="lede" set:html={emph(s.hero_lede)} />
 
         <div class="cta-row">
-          <a href="#contact" class="btn-primary">
+          <a href={ctaHref} class="btn-primary">
             {s.hero_cta_label}
             <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -153,8 +161,23 @@ const s = settings!.data;
       <div class="founders-grid">
         {s.founders.map((f) => (
           <article class="founder">
-            <span class="role">{f.role}</span>
-            <h3>{f.name}</h3>
+            <div class="founder-id">
+              <span class="founder-avatar">
+                {f.photo && (
+                  <img
+                    src={f.photo}
+                    alt={f.name}
+                    loading="lazy"
+                    onerror="this.closest('.founder-avatar').classList.add('is-fallback'); this.remove();"
+                  />
+                )}
+                <span class="founder-monogram" aria-hidden="true">{initials(f.name)}</span>
+              </span>
+              <div class="founder-id-text">
+                <span class="role">{f.role}</span>
+                <h3>{f.name}</h3>
+              </div>
+            </div>
             <p set:html={emph(f.bio)} />
             <div class="founder-prev">
               {f.prev.map((tag) => <span>{tag}</span>)}
@@ -234,7 +257,7 @@ const s = settings!.data;
     <div class="wrap">
       <div class="footer-inner">
         <div class="footer-mark">
-          <img src="/assets/logo-lockup.png" alt="finant" />
+          <Logo class="footer-logo" />
           <p class="tagline">{s.footer_tagline}</p>
         </div>
         <div class="footer-meta">
