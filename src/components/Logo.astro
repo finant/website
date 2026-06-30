@@ -1,0 +1,26 @@
+---
+/**
+ * Logo lockup — icon dot-grid + "finant" wordmark, both in `currentColor`.
+ *
+ * Renders crisply at any size (vector, not a bitmap) and inherits its colour
+ * from the surrounding text, so the same markup reads correctly on a light
+ * header and on the dark footer. Set `color` on the parent to theme it.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+<span class={`logo-lockup ${className}`} aria-label="finant" role="img">
+  <svg class="logo-lockup-mark" viewBox="0 0 188 188" fill="currentColor" aria-hidden="true">
+    <circle cx="94"  cy="46"  r="12"/>
+    <circle cx="138" cy="46"  r="12"/>
+    <circle cx="50"  cy="78"  r="12"/>
+    <circle cx="94"  cy="78"  r="12"/>
+    <circle cx="138" cy="78"  r="12"/>
+    <circle cx="50"  cy="110" r="12"/>
+    <circle cx="94"  cy="110" r="12"/>
+    <circle cx="94"  cy="142" r="12"/>
+  </svg>
+  <span class="logo-lockup-word">finant</span>
+</span>

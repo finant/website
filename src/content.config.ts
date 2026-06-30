@@ -12,6 +12,9 @@ const founderSchema = z.object({
   bio: z.string(),
   prev: z.array(z.string()),
   linkedin: z.string(),
+  // Optional headshot. Falls back to an initials monogram when empty or the
+  // image fails to load — so the page never shows a broken image.
+  photo: z.string().optional(),
 });
 
 const pillarSchema = z.object({
@@ -26,6 +29,10 @@ const site = defineCollection({
     // Nav
     nav_links: z.array(linkSchema),
     nav_cta_label: z.string(),
+
+    // Primary call-to-action (shared by the nav button + hero button)
+    cta_label: z.string().optional(),
+    cta_href: z.string().optional(),
 
     // Hero
     hero_eyebrow: z.string(),

@@ -6,7 +6,12 @@ nav_links:
   - { label: "Thesis", href: "#thesis" }
   - { label: "Building", href: "#building" }
   - { label: "Team", href: "#team" }
-nav_cta_label: "Get in touch"
+nav_cta_label: "Request a demo"
+
+# Primary call-to-action — used by both the nav button and the hero button.
+# Points to email for now; swap to a booking link or #contact when ready.
+cta_label: "Request a demo"
+cta_href: "mailto:persefoni@finant.ai?subject=Demo%20request%20%E2%80%94%20finant"
 
 # ──────────────────────────────────────────────────────────────
 # Hero
@@ -14,7 +19,7 @@ nav_cta_label: "Get in touch"
 hero_eyebrow: "In stealth · Est. 2026"
 hero_headline: "The operating model for *private* **markets.**"
 hero_lede: "AI-native infrastructure to automate the legal, accounting and operational workflows that power fund administrators, GPs and asset allocators — so they can scale revenue faster and run bigger portfolios with less friction."
-hero_cta_label: "Request early access"
+hero_cta_label: "Request a demo"
 hero_meta:
   - "Private equity"
   - "Fund administration"
@@ -78,6 +83,9 @@ founders_heading: "Built by *operators* who lived the problem."
 founders:
   - role: "Founder & CEO"
     name: "Persefoni Noulika"
+    # Drop a square headshot here to replace the monogram fallback:
+    # public/assets/team/persefoni-noulika.jpg  (≈600×600, square)
+    photo: "/assets/team/persefoni-noulika.jpg"
     bio: "15+ years in international private equity investing and fundraising. Led significant growth-equity rounds in technology and deployed over $1bn in equity. Co-founded and led a $1bn AUM impact strategy fund."
     prev:
       - "BlackRock"
@@ -86,6 +94,9 @@ founders:
     linkedin: "https://www.linkedin.com/in/persefoni-noulika/"
   - role: "Co-founder & CTO"
     name: "Nick Sorros"
+    # Drop a square headshot here to replace the monogram fallback:
+    # public/assets/team/nick-sorros.jpg  (≈600×600, square)
+    photo: "/assets/team/nick-sorros.jpg"
     bio: "Engineer and applied AI practitioner leading finant's technical direction — from architecture and infrastructure to LLM tooling, RAG systems and the data pipelines that make the platform reliable at institutional scale."
     prev:
       - "AI / ML"
@@ -123,7 +134,7 @@ footer_tagline: "The operating model for private markets."
 footer_links:
   - { label: "Email", href: "mailto:persefoni@finant.ai" }
   - { label: "LinkedIn", href: "https://www.linkedin.com/company/finant-ai/" }
-  - { label: "Early access", href: "#contact" }
+  - { label: "Request a demo", href: "mailto:persefoni@finant.ai?subject=Demo%20request%20%E2%80%94%20finant" }
 footer_copyright: "© 2026 finant. All rights reserved."
 footer_status: "Currently in stealth."
 ---
