@@ -83,7 +83,6 @@ const site = defineCollection({
     footer_tagline: z.string(),
     footer_links: z.array(linkSchema),
     footer_copyright: z.string(),
-    footer_status: z.string(),
   }),
 });
 

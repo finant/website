@@ -37,7 +37,7 @@ collections:
           - { label: "Nav CTA label", name: "nav_cta_label", widget: "string" }
 
           # ─── Hero ───────────────────────────────────────────
-          - { label: "Hero — eyebrow", name: "hero_eyebrow", widget: "string", hint: "Small line above the headline. e.g. 'In stealth · Est. 2026'" }
+          - { label: "Hero — eyebrow", name: "hero_eyebrow", widget: "string", hint: "Small line above the headline. e.g. 'Est. 2026'" }
           - label: "Hero — headline"
             name: "hero_headline"
             widget: "string"
@@ -130,4 +130,3 @@ collections:
               - { label: "Label", name: "label", widget: "string" }
               - { label: "Href", name: "href", widget: "string" }
           - { label: "Footer — copyright", name: "footer_copyright", widget: "string" }
-          - { label: "Footer — status", name: "footer_status", widget: "string" }

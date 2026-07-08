@@ -16,7 +16,7 @@ cta_href: "mailto:persefoni@finant.ai?subject=Demo%20request%20%E2%80%94%20finan
 # ──────────────────────────────────────────────────────────────
 # Hero
 # ──────────────────────────────────────────────────────────────
-hero_eyebrow: "In stealth · Est. 2026"
+hero_eyebrow: "Est. 2026"
 hero_headline: "The operating model for *private* **markets.**"
 hero_lede: "AI-native infrastructure to automate the legal, accounting and operational workflows that power fund administrators, GPs and asset allocators — so they can scale revenue faster and run bigger portfolios with less friction."
 hero_cta_label: "Request a demo"
@@ -136,5 +136,4 @@ footer_links:
   - { label: "LinkedIn", href: "https://www.linkedin.com/company/finant-ai/" }
   - { label: "Request a demo", href: "mailto:persefoni@finant.ai?subject=Demo%20request%20%E2%80%94%20finant" }
 footer_copyright: "© 2026 finant. All rights reserved."
-footer_status: "Currently in stealth."
 ---
